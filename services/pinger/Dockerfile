@@ -17,7 +17,8 @@ RUN apk --no-cache add ca-certificates
 
 WORKDIR /app
 
-COPY --from=builder /go/src/pinger/app /usr/local/bin/pinger
+#COPY --from=builder /go/src/pinger/app /usr/local/bin/pinger
+COPY --from=builder /go/src/pinger/app /app/pinger
 
 EXPOSE 8000
 

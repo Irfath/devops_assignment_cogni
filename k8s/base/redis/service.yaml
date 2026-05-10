@@ -7,8 +7,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 6380
-      targetPort: 6380
+    - port: 6379             # port change to 6379 from 6380
+      targetPort: 6379        # port change to 6379 from 6380
       protocol: TCP
   selector:
     app: redis

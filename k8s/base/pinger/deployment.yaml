@@ -21,14 +21,14 @@ spec:
         - name: pinger
           image: devops/pinger:latest
           ports:
-            - containerPort: 8000
+            - containerPort: 8080. # port change to 8080 from 8000
           envFrom:
             - configMapRef:
                 name: pinger-config
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 8000
+              port: 8080 # port change to 8080 from 8000
             initialDelaySeconds: 10
             periodSeconds: 10
           readinessProbe:

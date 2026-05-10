@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
   name: gateway
 spec:
@@ -7,6 +7,28 @@ spec:
     spec:
       containers:
         - name: gateway
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "1000m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pinger
+spec:
+  template:
+    spec:
+      containers:
+        - name: pinger
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: pinger-cm  # Change this to match your actual configmap name
           resources:
             requests:
               memory: "128Mi"

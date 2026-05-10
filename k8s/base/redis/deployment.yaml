@@ -34,6 +34,6 @@ spec:
         - name: redis-config
           configMap:
             name: redis-config
-        - name: redis-data
-          persistentVolumeClaim:
-            claimName: redis-data
+#        - name: redis-data
+#          persistentVolumeClaim:
+#            claimName: redis-data

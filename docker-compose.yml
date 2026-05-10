@@ -9,7 +9,8 @@ services:
       - "8000:8000"
     environment:
       - PORT=8000
-      - PINGER_HOST=pinger
+      #- PINGER_HOST=pinger
+      - PINGER_HOST=pinger-svc
       - PINGER_PORT=8000
       - REDIS_HOST=redis
       - REDIS_PORT=6379
