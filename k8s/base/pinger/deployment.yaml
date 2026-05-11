@@ -21,7 +21,7 @@ spec:
         - name: pinger
           image: devops/pinger:latest
           ports:
-            - containerPort: 8080. # port change to 8080 from 8000
+            - containerPort: 8080 # port change to 8080 from 8000
           envFrom:
             - configMapRef:
                 name: pinger-config

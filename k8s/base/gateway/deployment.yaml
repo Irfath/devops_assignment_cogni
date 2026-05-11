@@ -21,7 +21,7 @@ spec:
         - name: gateway
           image: devops/gateway:latest
           ports:
-            - containerPort: 8000.  # port change to 8000 from 8080
+            - containerPort: 8000  # port change to 8000 from 8080
           envFrom:
             - configMapRef:
                 name: gateway-config
