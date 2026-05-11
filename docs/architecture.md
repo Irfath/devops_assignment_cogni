@@ -1,24 +1,24 @@
 
 # Architecture
 
-1. Gateway -
+1. **Gateway -**
 
     Primary Ingress Point. 
     this routes external requests to redis cache. 
 
-2. Pinger -
+**2. Pinger -**
     Health check monitor. 
 
     URL : http://gateway.assessment.svc.cluster.local/healthz
 
-3. Redis Cache - 
+**3. Redis Cache - **
 
    Pinger health checks and Status codes periodically. 
 
-4. Docker Compose
+**4. Docker Compose**
     Services uses the default network, 
 
-5. Kubernetes
+**5. Kubernetes**
 
     ClusterIP as Loadbalancer, 
 
@@ -28,15 +28,15 @@
     Service Entry Port  : 8000
     Target Port         : 80
 
-@@@ Issue Fixes : 
+** @@@ Issue Fixes : **
 
-1. Network Port Issue. 
+**1. Network Port Issue. **
 
 - PINGER_HOST=pinger-svc
 Changed to the Correct service name, For correct ervice name connectivity. 
 
-2. 
-containers:
+**2. 
+containers:**
         - name: gateway
           image: devops/gateway:latest
           ports:
@@ -44,8 +44,8 @@ containers:
 
     Gateway connectivity port is 8000 .
 
-3. 
-LivenessProbe
+**3. 
+LivenessProbe**
 
 Liveness probe is responsible for to check if the container is Dead or Alive. 
 If the liveness prob fails tit is responsible for to kill the container. 
@@ -61,7 +61,7 @@ livenessProbe:
 -              port: 8080
 +              port: 8000 # port change to 8000 from 8080
 
-ReadinessProbes 
+**ReadinessProbes**
 
  Readiness Probe determines if a container is ready to serve traffic.
  It checks if the application has finished its startup.
@@ -76,7 +76,7 @@ ReadinessProbes
 readinessProbe port was incorrect here. Changed to 8000 for correct connectivity. 
 
 
-4. Gateway Service 
+**4. Gateway Service**
 
 selector:
 -    app: gw
@@ -91,7 +91,7 @@ Pods were labeled as "gateway" and gatewat service slector was incorret.
 Endpoint was not identified. 
 
 
-5. resource list
+**5. resource list**
 
 Redis deployements was not automatically deployed.
 
@@ -100,7 +100,7 @@ To create the Redis Deployment and the Redis Service.
 
 
 
-6. Error
+**6. Error**
 
 @@ no such host or NXDOMAIN.
 
@@ -115,14 +115,14 @@ in the pinger was unable to find the correct host due to Incorrect FDQN
 Fixed the FDQN Namespace and the target port. 
 
 
-7. Persistent Volume Issue
+**7. Persistent Volume Issue**
 
 There was an even in the log was unable to pick the Persistent Volume. 
 
 Event Error
 """"persistentvolumeclaim "redis-data" not found"""""
 
-8. Redis Port Issue 
+**8. Redis Port Issue**
 
 Redis was unable to connect,
 
@@ -132,7 +132,7 @@ Failed to connect to redis: dial tcp 10.96.x.x:6379: connect: connection refused
 Redis default port is 6379 was fixed in the redis/servivce.yaml
 
 
-9. Structural error in K8
+**9. Structural error in K8**
 
 
 >>kubectl apply -k k8s/overlays/dev
@@ -154,7 +154,7 @@ Fix :
  metadata:
 
 
- 10. ImagePullBackOff
+ **10. ImagePullBackOff**
 
  Usully this haapend when the imagePullpolicy is not defined, 
 
@@ -166,7 +166,7 @@ b/k8s/overlays/staging/patches/resource-limits.yaml
  #imagePullPolicy: IfNotPresent # added check for error
 
 
-ImagePullPolicy
+**ImagePullPolicy**
 
 For this i have tagged and pushed the :latest image. 
 
